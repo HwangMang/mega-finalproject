@@ -60,6 +60,7 @@ public class ReviewService {
     }
 
     /**
+     * @author 원재
      * 리뷰 조회수 DB에 리뷰글 볼떄마다 1씩 더해짐
      * @param id
      */
@@ -121,6 +122,12 @@ public class ReviewService {
         return FlagLike.OK;
     }
 
+    /**
+     * 리뷰의 아이디로 리뷰글 삭제
+     * @author 원재
+     * @param id
+     * @return
+     */
     public boolean deleteById(Long id) {
         reviewRepository.deleteById(id);
 

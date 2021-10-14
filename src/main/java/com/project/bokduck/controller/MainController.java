@@ -470,9 +470,10 @@ public class MainController {
     }
     /**
      * 리뷰 상세보기 리뷰글 연결
+     * @author 원재
      * @param model
      * @param id 리뷰글 id
-     * @param member
+     * @param member 현재 로그인한 회원
      * @return post/review/read.html
      */
     @GetMapping("/review/read")
@@ -495,8 +496,9 @@ public class MainController {
 
     /**
      * 리뷰글 좋아요 누를시 특정글 좋아요 증가
-     * @param id
-     * @param member
+     * @author 원재
+     * @param id 리뷰 id
+     * @param member 현재 로그인한 회원
      * @return
      */
     // 리뷰 컨트롤러
@@ -504,7 +506,6 @@ public class MainController {
     @ResponseBody
     public String readLikeReview(Long id, @CurrentMember Member member) {
         // 좋아요 눌렀을 때
-        log.info("좋아요 아이디 : {}", id);
 
         String resultCode = "";
         String message = "";
@@ -544,6 +545,12 @@ public class MainController {
         return jsonObject.toString();
     }
 
+    /**
+     * 리뷰글 작성자 본인일시 디비에 리뷰글 삭제
+     * @author 원재
+     * @param id
+     * @return jsonObject
+     */
     @GetMapping("/read/delete")
     @ResponseBody
     public String reviewDelete(Long id) {
@@ -568,10 +575,11 @@ public class MainController {
 
     /**
      * 리뷰 댓글 작성후 DB에 저장후 화면 전달
-     * @param comment
-     * @param id
+     * @author 원재
+     * @param comment 댓글
+     * @param id 리뷰 id
      * @param model
-     * @param member
+     * @param member 현재 로그인한 회원
      * @return 리뷰글
      */
     @PostMapping("/review/read/comment/{id}")
@@ -594,10 +602,11 @@ public class MainController {
 
     /**
      * 리뷰 댓글 대댓글일 경우 DB에 저장
-     * @param subComment
-     * @param id
+     * @author 원재
+     * @param subComment 대댓글
+     * @param id 리뷰 id
      * @param model
-     * @param member
+     * @param member 현재 로그인한 회원
      * @return 리뷰 상세보기
      */
     @PostMapping("/review/read/subcomment/{id}")
