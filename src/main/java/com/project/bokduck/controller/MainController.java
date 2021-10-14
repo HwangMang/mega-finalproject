@@ -70,6 +70,7 @@ public class MainController {
 
     /**
      * 임의의 리뷰글 및 커뮤니티글 생성
+     * @author 미리
      */
     @PostConstruct
     @DependsOn("memberRepository")
@@ -365,6 +366,12 @@ public class MainController {
         return "index";
     }
 
+
+    /**
+     * @author miri
+     * @author 미리
+     * @return 로그인 페이지
+     */
     @GetMapping("/login")
     public String login() {
         return "member/login";
@@ -399,11 +406,6 @@ public class MainController {
         memberService.processNewMember(joinFormVo);
 
         return "redirect:/";
-    }
-
-    @GetMapping("/id-search")
-    public String idCheck() {
-        return "member/id-search";
     }
 
     /**
@@ -478,7 +480,7 @@ public class MainController {
      */
     @GetMapping("/review/read")
     public String readReview(Model model, @RequestParam(name = "id") Long id, @CurrentMember Member member) {
-        Review review = reviewService.getReview(id);
+        Review review = reviewService.findById(id);
 
         reviewService.increaseHit(id);
 
@@ -1141,7 +1143,7 @@ public class MainController {
     }
 
     /**
-     * 좋아요(하트)를 누르면 DB의 정보를 업데이트한다
+     * 좋아요를 누르면 DB의 정보를 업데이트한다
      * @author 이선주
      * @param id 좋아요를 누를 글의 id
      * @param member 좋아요를 누를 유저(현재 로그인해있는 유저)
@@ -1187,7 +1189,7 @@ public class MainController {
 
     /**
      * 마이페이지를 클릭하면 마이페이지 이동
-     * @author 민경
+     * @author 민경,  MunKyoung
      * @param model
      * @param member 현재 로그인한 회원
      * @param pageable
@@ -1230,7 +1232,6 @@ public class MainController {
      * @param repass 새로운 비밀번호 확인
      * @return 실패 -> 실패 메세지를 띄어준다, 성공 -> db상에 비밀번호 변경한다.
      */
-
     @ResponseBody
     @GetMapping("/password/change/result")
     public String passwordChangeResult(@CurrentMember Member member, String oldpass, String pass, String repass) {
@@ -1352,7 +1353,12 @@ public class MainController {
         return jsonObject.toString();
     }
 
-
+    /**
+     * @param tel   사용자로부터 입력받은 전화번호
+     * @param model
+     * @return 아이디찾기 페이지
+     * @author 미리
+     */
     @RequestMapping("/idsearch")
     public String idSearchResult(String tel, Model model) {
         // 아이디 찾기
